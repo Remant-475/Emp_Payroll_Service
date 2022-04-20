@@ -17,3 +17,6 @@ INSERT INTO Employee_payroll(Emp_Name,SALARY,StartDate) VALUES
 ('SHUBHAM',40000,'2022-04-08'),
 ('KUMUD',35000,'2022-02-15'),
 ('GEETA',45000,'2022-01-06');
+
+--UC4-Retrieving all data from table
+Select * from Employee_payroll;
