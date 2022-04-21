@@ -29,3 +29,15 @@ select *From Employee_Payroll where startdate between CAST('2022-04-1' as date) 
 Alter Table Employee_payroll add Gender Varchar(1);
 Update Employee_payroll set Gender='M' where Emp_Id In (1,2,3);
 Update Employee_payroll set Gender='F' where Emp_Id In (4,5);
+
+-- find sum, average, min, max and number of male and female employees
+select sum(Salary) as Sum_Of_Salary_of_FemaleEmp from Employee_payroll where Gender = 'F' Group by Gender;
+select sum(Salary) as Sum_Of_Salary_of_MaleEmp from Employee_payroll where Gender = 'M' Group by Gender;
+select Avg(Salary) as Avg_Salary_of_FemaleEmp from employee_payroll where Gender = 'F' Group by Gender;
+select Avg(Salary) as Avg_Salary_of_MaleEmp from employee_payroll where Gender = 'M' Group by Gender;
+select Max(Salary) as Max_Salary_of_FemaleEmp from employee_payroll where Gender = 'F' Group by Gender;
+select Max(Salary) as Max_Salary_of_MaleEmp from employee_payroll where Gender = 'M' Group by Gender;
+select Min(Salary) as Min_Salary_of_FemaleEmp from employee_payroll where Gender = 'F' Group by Gender;
+select Min(Salary) as Min_Salary_of_MaleEmp from employee_payroll where Gender = 'M' Group by Gender;
+select count(Salary) as No_of_FemaleEmp from employee_payroll where Gender = 'F' Group by Gender;
+select count(Salary) as No_of_MaleEmp from employee_payroll where Gender = 'M' Group by Gender;
