@@ -30,7 +30,7 @@ Alter Table Employee_payroll add Gender Varchar(1);
 Update Employee_payroll set Gender='M' where Emp_Id In (1,2,3);
 Update Employee_payroll set Gender='F' where Emp_Id In (4,5);
 
--- find sum, average, min, max and number of male and female employees
+-- UC 7-find sum, average, min, max and number of male and female employees
 select sum(Salary) as Sum_Of_Salary_of_FemaleEmp from Employee_payroll where Gender = 'F' Group by Gender;
 select sum(Salary) as Sum_Of_Salary_of_MaleEmp from Employee_payroll where Gender = 'M' Group by Gender;
 select Avg(Salary) as Avg_Salary_of_FemaleEmp from employee_payroll where Gender = 'F' Group by Gender;
@@ -41,3 +41,27 @@ select Min(Salary) as Min_Salary_of_FemaleEmp from employee_payroll where Gender
 select Min(Salary) as Min_Salary_of_MaleEmp from employee_payroll where Gender = 'M' Group by Gender;
 select count(Salary) as No_of_FemaleEmp from employee_payroll where Gender = 'F' Group by Gender;
 select count(Salary) as No_of_MaleEmp from employee_payroll where Gender = 'M' Group by Gender;
+
+--UC8 -Add column department,PhoneNumber and Address
+Alter table Employee_payroll
+add PhoneNumber BigInt,Department varchar(200) not null default 'Sales',Address varchar(200) default 'Not Provided';
+
+Update Employee_payroll 
+set PhoneNumber='8271630771',Department='Marketing',Address='Dhanbad,Jharkhand'
+where Emp_Name='REMANT';
+
+Update Employee_payroll 
+set PhoneNumber='9798777067',Address='Patna,Bihar'
+where Emp_Name ='AMAN';
+
+Update Employee_payroll 
+set PhoneNumber='7903488510 ',Department='Lead',Address='KoLkata,WB'
+where Emp_Name ='SHUBHAM';
+
+Update Employee_payroll 
+set PhoneNumber='7903488210',Address='Dugrapur,WB'
+where Emp_Name ='KUMUD';
+
+Update Employee_payroll 
+set PhoneNumber='9835390376',Department='Lead',Address='Bokaro,Jharkhnad'
+where Emp_Name ='Geeta';
