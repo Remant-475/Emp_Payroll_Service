@@ -20,3 +20,7 @@ INSERT INTO Employee_payroll(Emp_Name,SALARY,StartDate) VALUES
 
 --UC4-Retrieving all data from table
 Select * from Employee_payroll;
+
+--UC 5 Retrieve Data for particular employee as well as who joined in a particular datarange
+select * from Employee_payroll where Emp_Name='SHUBHAM';
+select *From Employee_Payroll where startdate between CAST('2022-04-1' as date) and getdate();
