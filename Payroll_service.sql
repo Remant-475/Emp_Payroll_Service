@@ -18,6 +18,7 @@ INSERT INTO Employee_payroll(Emp_Name,SALARY,StartDate) VALUES
 ('KUMUD',35000,'2022-02-15'),
 ('GEETA',45000,'2022-01-06');
 
+
 --UC4-Retrieving all data from table
 Select * from Employee_payroll;
 
@@ -65,3 +66,22 @@ where Emp_Name ='KUMUD';
 Update Employee_payroll 
 set PhoneNumber='9835390376',Department='Lead',Address='Bokaro,Jharkhnad'
 where Emp_Name ='Geeta';
+
+--UC 9-  Add BasicPay, Deduction,Taxable pay, Income Pay and Netpay
+EXEC sp_RENAME 'Employee_payroll.Basic_Pay' , 'BasicPay', 'COLUMN'
+Alter table Employee_payroll
+add Deduction float,TaxablePay float, IncomeTax float,NetPay float;
+Update Employee_payroll 
+set Deduction=1000
+where Gender='F';
+Update Employee_payroll 
+set Deduction=2000
+where Gender='M';
+update Employee_payroll
+set NetPay=(BasicPay - Deduction)
+update Employee_payroll
+set TaxablePay=0,IncomeTax=0
+select * from Employee_payroll;
+
+
+
