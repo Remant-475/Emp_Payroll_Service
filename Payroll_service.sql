@@ -83,5 +83,8 @@ update Employee_payroll
 set TaxablePay=0,IncomeTax=0
 select * from Employee_payroll;
 
-
-
+--UC10- Two departments for same employee
+Insert into Employee_payroll(Emp_Name,BasicPay,StartDate,Gender,PhoneNumber,Department,Address) values ('GEETA',450000,'2022-01-06','F',9835390376,'Management','Bokaro,Jharkhand');
+select * from Employee_payroll;
+update Employee_payroll
+set BasicPay=45000 where Emp_Name='Geeta';
