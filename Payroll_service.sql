@@ -182,3 +182,37 @@ LEFT JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.Employe
 LEFT JOIN EmployeeDepartment on Employee.EmployeeID=EmployeeDepartment.EmployeeIdentity
 LEFT JOIN Department on Department.DepartmentId=EmployeeDepartment.DepartmentIdentity
 
+--UC 5: Retrieve Data for particular employee as well as who joined in a particular datarange
+SELECT CompanyID,CompanyName,EmployeeID,EmployeeName,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay
+FROM Company
+INNER JOIN Employee ON Company.CompanyID = Employee.CompanyIdentity and StartDate BETWEEN Cast('2012-11-12' as Date) and GetDate()
+INNER JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID
+--Retrieve query based on Name
+SELECT CompanyID,CompanyName,EmployeeID,EmployeeName,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay
+FROM Company
+INNER JOIN Employee ON Company.CompanyID = Employee.CompanyIdentity and Employee.EmployeeName='Ajit Kumar'
+INNER JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID
+
+--UC 7: -find sum, average, min, max and number of male and female employees
+
+select Sum(BasicPay) as "TotalSalary",Gender 
+from Employee
+INNER JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID group by Gender;
+
+select Avg(BasicPay) as "AverageSalary",Gender 
+from Employee
+INNER JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID group by Gender;
+
+select Min(BasicPay) as "MinimumSalary",Gender 
+from Employee
+INNER JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID group by Gender;
+
+select Max(BasicPay)  as "MaximumSalary",Gender 
+from Employee
+INNER JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID group by Gender;
+
+select Count(BasicPay) as "CountSalary",Gender 
+from Employee
+INNER JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID group by Gender;
+
+
