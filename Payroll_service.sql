@@ -88,3 +88,97 @@ Insert into Employee_payroll(Emp_Name,BasicPay,StartDate,Gender,PhoneNumber,Depa
 select * from Employee_payroll;
 update Employee_payroll
 set BasicPay=45000 where Emp_Name='Geeta';
+
+-- UC 11: Implement the ER Diagram into Payroll Service DB 
+--Create Table for Company
+Create Table Company
+(CompanyID int identity(1,1) primary key,
+CompanyName varchar(100))
+--Insert Values in Company
+Insert into Company values ('Infosys'),('Wipro')
+Select * from Company
+drop table Company
+
+--Create Employee Table
+create table Employee
+(EmployeeID int identity(1,1) primary key,
+EmployeeName varchar(200),
+EmployeePhoneNumber bigInt,
+EmployeeAddress varchar(200),
+StartDate date,
+Gender char
+)
+--Insert Values in Employee
+insert into Employee values
+('Kavita Yadav',9234123750,'Dhanbad,Jharkhand','2012-03-28','F'),
+('Sweta Triphati',9842905550,'Azamgarh,UP','2017-04-22','F'),
+('Nilesh',8789555067,'Gaya,Bihar','2015-08-22','M'),
+('Ajit Kumar',7250487755,'Patna,Bihar','2012-08-29','M')
+
+Select * from Employee
+
+--Create Payroll Table
+create table PayrollCalculate
+(BasicPay float,
+Deductions float,
+TaxablePay float,
+IncomeTax float,
+NetPay float,
+EmployeeIdentity int,
+Foreign key (EmployeeIdentity) references Employee(EmployeeID)
+)
+--Insert Values in Payroll Table
+insert into PayrollCalculate(BasicPay,Deductions,IncomeTax,EmployeeIdentity) values 
+(4000000,1000000,20000,1),
+(4500000,200000,4000,2),
+(6000000,10000,5000,3),
+(9000000,399994,6784,4);
+
+--Update Derived attribute values 
+update PayrollCalculate
+set TaxablePay=BasicPay-Deductions
+
+update PayrollCalculate
+set NetPay=TaxablePay-IncomeTax
+
+select * from PayrollCalculate
+drop table PayrollCalculate
+
+--Create Department Table
+create table Department
+(
+DepartmentId int identity(1,1) primary key,
+DepartName varchar(100)
+)
+--Insert Values in Department Table
+insert into Department values
+('Marketing'),
+('Sales'),
+('Lead')
+
+select * from Department
+
+--Create table EmployeeDepartment
+create table EmployeeDepartment
+(
+DepartmentIdentity int,
+EmployeeIdentity int,
+Foreign key (EmployeeIdentity) references Employee(EmployeeID),
+Foreign key (DepartmentIdentity) references Department(DepartmentID)
+)
+
+--Insert Values in EmployeeDepartment
+insert into EmployeeDepartment values
+(3,1),
+(2,2),
+(1,3),
+(3,4)
+select * from EmployeeDepartment
+drop table EmployeeDepartment
+
+SELECT EmployeeID,EmployeeName,EmployeeAddress,EmployeePhoneNumber,StartDate,Gender,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay,DepartName
+FROM Employee
+LEFT JOIN PayrollCalculate on PayrollCalculate.EmployeeIdentity=Employee.EmployeeID
+LEFT JOIN EmployeeDepartment on Employee.EmployeeID=EmployeeDepartment.EmployeeIdentity
+LEFT JOIN Department on Department.DepartmentId=EmployeeDepartment.DepartmentIdentity
+
